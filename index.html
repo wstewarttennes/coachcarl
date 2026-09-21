@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Coach Carl is the first fully AI football coach. 1,140 pounds of pure football intelligence. Plugs into any standard sideline outlet.">
+<meta property="og:title" content="Coach Carl">
+<meta property="og:description" content="The first fully AI football coach. He has never felt fear. Or anything, really.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#2E6B3F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='14' width='48' height='40' rx='8' fill='%23C8D0CC' stroke='%2316211B' stroke-width='4'/%3E%3Crect x='15' y='22' width='34' height='24' rx='3' fill='%23120E08'/%3E%3Crect x='21' y='28' width='7' height='9' fill='%23FFB23F'/%3E%3Crect x='36' y='28' width='7' height='9' fill='%23FFB23F'/%3E%3Cpath d='M6 16 L58 16 L58 8 Q32 2 6 8 Z' fill='%23F2C318' stroke='%2316211B' stroke-width='3'/%3E%3C/svg%3E">
+<title>Coach Carl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=Barlow:ital,wght@0,400;0,500;0,700;1,400&family=Barlow+Condensed:wght@500;700;800&family=VT323&family=Permanent+Marker&display=swap">
+<style>
+  html, body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+  :root {
+    --paper: #ECEFE6;
+    --paper-2: #E1E6DA;
+    --ink: #16211B;
+    --ink-soft: #46544B;
+    --turf: #2E6B3F;
+    --turf-dark: #1D4A2B;
+    --chalk-bg: #1F2A24;
+    --chalk: #EEF2EA;
+    --flag: #F2C318;
+    --navy: #22325E;
+    --amber: #FFB23F;
+    --screen: #120E08;
+    --rule: #C5CCBF;
+
+    --display: "Graduate", "Rockwell", "Courier New", serif;
+    --body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+    --cond: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    --robot: "VT323", "Courier New", monospace;
+    --marker: "Permanent Marker", "Comic Sans MS", cursive;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--flag); outline-offset: 3px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+  .eyebrow {
+    font-family: var(--cond);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: 14px;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.02;
+    letter-spacing: -.01em;
+  }
+
+  /* ---------- nav ---------- */
+  .nav {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .nav .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding-block: 12px; flex-wrap: wrap;
+  }
+  .logo { font-family: var(--display); font-size: 22px; letter-spacing: .02em; text-decoration: none; }
+  .logo span { color: var(--flag); }
+  .status {
+    font-family: var(--robot); font-size: 20px; line-height: 1;
+    color: var(--amber); display: flex; align-items: center; gap: 8px;
+  }
+  .status .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--amber); animation: blink 1.6s steps(2) infinite; }
+  .nav-links { display: flex; gap: 20px; align-items: center; font-family: var(--cond); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 15px; }
+  .nav-links a { text-decoration: none; opacity: .85; }
+  .nav-links a:hover { opacity: 1; color: var(--flag); }
+  @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--cond); font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    font-size: 17px; text-decoration: none;
+    background: var(--flag); color: var(--ink);
+    padding: 12px 22px; border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn.small { font-size: 14px; padding: 7px 14px; box-shadow: 3px 3px 0 var(--paper); border-color: var(--paper); }
+  .btn.ghost { background: transparent; color: var(--paper); border-color: var(--paper); box-shadow: 4px 4px 0 rgba(0,0,0,.35); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    color: var(--paper);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 118px, rgba(255,255,255,.55) 118px 121px),
+      repeating-linear-gradient(90deg, var(--turf) 0 60px, #2A633A 60px 120px);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 6px solid var(--ink);
+  }
+  .hero .wrap {
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center;
+    padding-block: 56px 40px;
+  }
+  .hero-copy { position: relative; z-index: 2; display: grid; gap: 22px; }
+  .hero-copy .eyebrow { color: var(--flag); background: var(--ink); justify-self: start; padding: 4px 10px; }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(56px, 10vw, 118px);
+    line-height: .88;
+    letter-spacing: -.01em;
+    color: var(--paper);
+    text-shadow: 4px 4px 0 var(--ink), 8px 8px 0 var(--flag);
+  }
+  .hero .lede {
+    font-size: 21px; line-height: 1.45; max-width: 30ch;
+    background: rgba(22,33,27,.82); padding: 14px 16px; border-left: 5px solid var(--flag);
+  }
+  .hero .ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .fine { font-size: 13px; opacity: .85; max-width: 46ch; background: rgba(22,33,27,.6); padding: 4px 8px; }
+
+  .carl-stage { position: relative; z-index: 1; }
+  .carl-stage svg { width: 100%; max-width: 460px; height: auto; display: block; margin-inline: auto; }
+  .bubble {
+    position: absolute; top: 0; left: -6%;
+    max-width: 250px;
+    background: var(--screen); color: var(--amber);
+    font-family: var(--robot); font-size: 22px; line-height: 1.05;
+    padding: 12px 14px;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    min-height: 2.6em;
+  }
+  .bubble::after {
+    content: ""; position: absolute; right: 26px; bottom: -14px;
+    border: 7px solid transparent; border-top-color: var(--ink); border-left-color: var(--ink);
+  }
+  .bubble .cursor { animation: blink 1s steps(2) infinite; }
+  @media (max-width: 820px) {
+    .hero .wrap { grid-template-columns: 1fr; padding-block: 36px 28px; }
+    .bubble { left: 0; }
+  }
+
+  #carl-eyes { animation: carlblink 5s infinite; transform-origin: 200px 118px; }
+  #carl-body { animation: idle 3.2s ease-in-out infinite; transform-origin: 200px 390px; }
+  @keyframes carlblink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+  @keyframes idle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px) scaleY(.99); } }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- ticker ---------- */
+  .ticker { background: var(--ink); color: var(--flag); overflow: hidden; white-space: nowrap; border-bottom: 6px solid var(--flag); }
+  .ticker-track { display: inline-flex; gap: 48px; padding-block: 12px; animation: tick 48s linear infinite; font-family: var(--cond); font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .08em; }
+  .ticker-track span b { color: var(--paper); font-variant-numeric: tabular-nums; }
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  section { padding-block: 80px; }
+  @media (max-width: 600px) { section { padding-block: 56px; } }
+
+  /* ---------- ask carl ---------- */
+  .ask .head { display: grid; gap: 10px; margin-bottom: 32px; max-width: 640px; }
+  .ask .head p { color: var(--ink-soft); font-size: 18px; }
+  .ask-grid { display: grid; grid-template-columns: 340px 1fr; gap: 28px; align-items: stretch; }
+  @media (max-width: 860px) { .ask-grid { grid-template-columns: 1fr; } }
+  .clipboard {
+    background: #B98A55;
+    border: 3px solid var(--ink);
+    padding: 34px 16px 16px;
+    position: relative;
+  }
+  .clipboard::before {
+    content: ""; position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 32px; background: #9AA39E; border: 3px solid var(--ink); border-radius: 6px 6px 3px 3px;
+  }
+  .clip-sheet { background: #FBFCF8; border: 2px solid var(--ink); padding: 18px; display: grid; gap: 14px; }
+  .field { display: grid; gap: 4px; }
+  .field label { font-family: var(--cond); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 13px; color: var(--ink-soft); }
+  .field select, .field input {
+    font: 500 17px var(--body); color: var(--ink);
+    padding: 9px 10px; border: 2px solid var(--ink); background: #fff; border-radius: 0; width: 100%;
+  }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .clip-sheet .btn { width: 100%; text-align: center; margin-top: 4px; }
+
+  .readout {
+    background: var(--screen); color: var(--amber);
+    border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+    padding: 22px 24px;
+    font-family: var(--robot);
+    display: grid; gap: 16px; align-content: start;
+    position: relative;
+    background-image: repeating-linear-gradient(0deg, rgba(255,178,63,.05) 0 2px, transparent 2px 4px);
+    min-height: 360px;
+  }
+  .readout .lbl { font-size: 18px; opacity: .6; letter-spacing: .06em; }
+  .readout .call { font-size: clamp(34px, 5vw, 50px); line-height: .95; color: #FFD27F; text-shadow: 0 0 12px rgba(255,178,63,.45); }
+  .readout .meta { display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 22px; }
+  .readout .meta b { font-weight: normal; color: #FFD27F; }
+  .readout .reason { font-size: 22px; line-height: 1.15; max-width: 60ch; }
+  .readout .disclaimer { font-size: 17px; opacity: .55; border-top: 1px dashed rgba(255,178,63,.35); padding-top: 12px; }
+  .readout.thinking .out { opacity: .15; }
+  .readout .think { position: absolute; inset: auto 24px 20px auto; font-size: 20px; }
+
+  /* ---------- chalkboard features ---------- */
+  .chalk {
+    background: var(--chalk-bg); color: var(--chalk);
+    background-image: radial-gradient(ellipse at 20% 10%, rgba(255,255,255,.05), transparent 60%), radial-gradient(ellipse at 90% 80%, rgba(255,255,255,.04), transparent 50%);
+    border-block: 10px solid #5B4128;
+  }
+  .chalk .head { display: grid; gap: 10px; margin-bottom: 44px; }
+  .chalk .eyebrow { color: var(--flag); }
+  .chalk .section-title { color: var(--chalk); }
+  .plays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 56px; }
+  @media (max-width: 760px) { .plays { grid-template-columns: 1fr; } }
+  .play { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: start; }
+  .play svg { width: 64px; height: 64px; }
+  .play h3 { font-family: var(--marker); font-weight: 400; font-size: 26px; line-height: 1.1; margin-bottom: 6px; color: #FFF6C8; }
+  .play p { color: rgba(238,242,234,.82); max-width: 48ch; }
+
+  /* ---------- card + speech ---------- */
+  .duo { display: grid; grid-template-columns: 360px 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 860px) { .duo { grid-template-columns: 1fr; } }
+  .card {
+    background: #FBFCF8; border: 3px solid var(--ink); padding: 8px;
+    box-shadow: 8px 8px 0 var(--navy);
+    transform: rotate(-1.5deg);
+  }
+  .card-inner { border: 2px solid var(--navy); padding: 18px; display: grid; gap: 14px; }
+  .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-bottom: 3px solid var(--navy); padding-bottom: 10px; }
+  .card-top h3 { font-family: var(--display); font-size: 26px; color: var(--navy); }
+  .card-top span { font-family: var(--cond); font-weight: 800; font-size: 15px; background: var(--navy); color: var(--paper); padding: 2px 8px; }
+  .stats { display: grid; gap: 0; margin: 0; }
+  .stats div { display: grid; grid-template-columns: 120px 1fr; gap: 10px; padding-block: 7px; border-bottom: 1px dotted var(--rule); font-size: 15px; }
+  .stats dt { font-family: var(--cond); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-size: 13px; padding-top: 2px; }
+  .stats dd { margin: 0; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .card-foot { font-size: 12px; color: var(--ink-soft); font-style: italic; }
+
+  .speech { display: grid; gap: 18px; }
+  .speech .eyebrow { color: var(--turf); }
+  .speech blockquote {
+    margin: 0; font-family: var(--robot); font-size: clamp(24px, 2.6vw, 30px); line-height: 1.15;
+    background: var(--screen); color: var(--amber); padding: 26px 28px; border: 3px solid var(--ink);
+    display: grid; gap: 14px;
+  }
+  .speech blockquote p { max-width: 52ch; }
+  .speech .slide { color: #FFD27F; }
+  .speech .note { color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- presser ---------- */
+  .presser { background: var(--paper-2); border-block: 1px solid var(--rule); }
+  .presser .head { display: grid; gap: 10px; margin-bottom: 36px; max-width: 680px; }
+  .presser .head p { color: var(--ink-soft); }
+  .transcript { display: grid; gap: 22px; max-width: 760px; }
+  .line { display: grid; grid-template-columns: 110px 1fr; gap: 18px; }
+  .who { font-family: var(--cond); font-weight: 800; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; padding-top: 3px; }
+  .line.q .who { color: var(--ink-soft); }
+  .line.q p { font-style: italic; color: var(--ink-soft); }
+  .line.c .who { color: var(--navy); }
+  .line.c p { font-size: 19px; font-weight: 500; }
+  .stage-dir { font-family: var(--cond); text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--ink-soft); padding-left: 128px; }
+  @media (max-width: 560px) {
+    .line { grid-template-columns: 1fr; gap: 2px; }
+    .stage-dir { padding-left: 0; }
+  }
+
+  /* ---------- testimonials ---------- */
+  .quotes { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 36px; align-items: start; }
+  @media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
+  .q-item { display: grid; gap: 12px; border-top: 4px solid var(--ink); padding-top: 16px; }
+  .q-item p { font-size: 19px; line-height: 1.4; }
+  .q-item.big p { font-family: var(--display); font-size: clamp(24px, 2.6vw, 32px); line-height: 1.12; }
+  .q-item cite { font-style: normal; font-family: var(--cond); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; color: var(--ink-soft); }
+  .stars { color: var(--flag); -webkit-text-stroke: 1px var(--ink); letter-spacing: 2px; font-size: 18px; }
+
+  /* ---------- pricing ---------- */
+  .pricing { background: var(--turf-dark); color: var(--paper); }
+  .pricing .head { display: grid; gap: 10px; margin-bottom: 40px; }
+  .pricing .eyebrow { color: var(--flag); }
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+  @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+  .tier { background: var(--paper); color: var(--ink); border: 3px solid var(--ink); padding: 26px 22px; display: grid; gap: 14px; align-content: start; position: relative; }
+  .tier.hot { background: var(--flag); box-shadow: 8px 8px 0 var(--ink); }
+  .tier .badge { position: absolute; top: -14px; left: 18px; background: var(--ink); color: var(--flag); font-family: var(--cond); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; padding: 4px 10px; }
+  .tier h3 { font-family: var(--display); font-size: 28px; }
+  .price { font-family: var(--cond); font-weight: 800; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .price small { font-size: 18px; font-weight: 500; }
+  .tier ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 16px; }
+  .fine-print { margin-top: 28px; font-size: 14px; opacity: .8; max-width: 80ch; }
+
+  /* ---------- patch notes ---------- */
+  .patch-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+  @media (max-width: 860px) { .patch-grid { grid-template-columns: 1fr; } }
+  .patch-head { display: grid; gap: 10px; align-content: start; }
+  .patch-head p { color: var(--ink-soft); }
+  .version { font-family: var(--robot); font-size: 26px; color: var(--turf); }
+  .changelog { display: grid; gap: 0; }
+  .change { display: grid; grid-template-columns: 88px 1fr; gap: 14px; padding-block: 13px; border-bottom: 1px solid var(--rule); }
+  .tag { font-family: var(--cond); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; text-align: center; padding: 3px 0; align-self: start; border: 2px solid var(--ink); }
+  .tag.fix { background: var(--paper-2); }
+  .tag.new { background: var(--flag); }
+  .tag.known { background: var(--ink); color: var(--flag); }
+
+  /* ---------- faq ---------- */
+  .faq { background: var(--paper-2); border-top: 1px solid var(--rule); }
+  .faq .wrap { max-width: 820px; }
+  .faq .section-title { margin-bottom: 28px; }
+  details { border-bottom: 2px solid var(--ink); }
+  details:first-of-type { border-top: 2px solid var(--ink); }
+  summary { cursor: pointer; list-style: none; padding-block: 18px; font-family: var(--cond); font-weight: 700; font-size: 22px; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-family: var(--display); font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { padding-bottom: 20px; max-width: 64ch; color: var(--ink-soft); }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--ink); color: var(--paper); padding-block: 48px; }
+  footer .wrap { display: grid; gap: 18px; }
+  footer .big { font-family: var(--display); font-size: clamp(28px, 4vw, 40px); line-height: 1.05; }
+  footer .big span { color: var(--flag); }
+  footer small { opacity: .6; font-size: 13px; max-width: 80ch; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">COACH <span>CARL</span></a>
+    <div class="status" aria-live="polite"><span class="dot"></span><span id="battery">CARL: ONLINE · 100%</span></div>
+    <div class="nav-links">
+      <a href="#ask">Ask Carl</a>
+      <a href="#presser">Press</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn small" href="#pricing">Buy Carl</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">The first fully AI football coach</span>
+      <h1>Coach<br>Carl.</h1>
+      <p class="lede">1,140 pounds of pure football intelligence. He has never felt fear. Or anything, really. He plugs into any standard sideline outlet.*</p>
+      <div class="ctas">
+        <a class="btn" href="#pricing">Put Carl on your sideline</a>
+        <a class="btn ghost" href="#ask">Ask Carl for a play</a>
+      </div>
+      <p class="fine">*Extension cord sold separately. 200 ft minimum for away games. Carl is not waterproof, Gatorade-proof, or sympathetic to your feelings about either.</p>
+    </div>
+
+    <div class="carl-stage">
+      <div class="bubble" id="bubble"><span id="bubble-text">GREAT HUSTLE, #44. YOU ARE MY FAVORITE NUMBER.</span><span class="cursor">_</span></div>
+      <svg viewBox="0 0 420 440" role="img" aria-labelledby="carl-t">
+        <title id="carl-t">Coach Carl: a very wide robot in a navy coaching polo, a visor and a headset, holding a clipboard, plugged into the wall by an orange extension cord.</title>
+        <!-- extension cord -->
+        <path d="M300 395 C 340 420, 360 380, 380 410 S 410 430, 430 420" fill="none" stroke="#E0701E" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="200" cy="412" rx="170" ry="16" fill="#16211B" opacity=".35"/>
+        <g id="carl-body">
+          <!-- treads -->
+          <rect x="70" y="355" width="260" height="48" rx="24" fill="#2B2F2D" stroke="#16211B" stroke-width="4"/>
+          <circle cx="100" cy="379" r="15" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <circle cx="160" cy="379" r="15" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <circle cx="240" cy="379" r="15" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <circle cx="300" cy="379" r="15" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <!-- arm back (clipboard) -->
+          <path d="M330 255 C 372 262, 384 300, 368 320" fill="none" stroke="#9AA39E" stroke-width="20" stroke-linecap="round"/>
+          <path d="M330 255 C 372 262, 384 300, 368 320" fill="none" stroke="#16211B" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 0" opacity="0"/>
+          <!-- body polo -->
+          <ellipse cx="200" cy="275" rx="150" ry="108" fill="#22325E" stroke="#16211B" stroke-width="4"/>
+          <ellipse cx="160" cy="245" rx="70" ry="40" fill="#fff" opacity=".07"/>
+          <!-- collar -->
+          <path d="M150 172 L200 200 L250 172 L240 196 L200 214 L160 196 Z" fill="#EEF2EA" stroke="#16211B" stroke-width="3" stroke-linejoin="round"/>
+          <line x1="200" y1="214" x2="200" y2="250" stroke="#16211B" stroke-width="3"/>
+          <circle cx="200" cy="228" r="3.5" fill="#EEF2EA"/>
+          <circle cx="200" cy="242" r="3.5" fill="#EEF2EA"/>
+          <!-- logo patch -->
+          <rect x="248" y="218" width="44" height="30" fill="#F2C318" stroke="#16211B" stroke-width="3"/>
+          <text x="270" y="241" text-anchor="middle" font-family="Graduate, serif" font-size="20" fill="#16211B">C</text>
+          <!-- belly battery -->
+          <rect x="150" y="300" width="100" height="26" rx="4" fill="#120E08" stroke="#16211B" stroke-width="3"/>
+          <rect id="belly-batt" x="155" y="305" width="90" height="16" fill="#FFB23F"/>
+          <!-- clipboard -->
+          <g transform="rotate(-8 360 300)">
+            <rect x="330" y="275" width="60" height="78" fill="#B98A55" stroke="#16211B" stroke-width="3"/>
+            <rect x="337" y="286" width="46" height="60" fill="#FBFCF8"/>
+            <rect x="347" y="270" width="26" height="10" fill="#9AA39E" stroke="#16211B" stroke-width="2"/>
+            <text x="345" y="305" font-family="Permanent Marker, cursive" font-size="12" fill="#16211B">X  O</text>
+            <path d="M345 320 q 10 -12 20 0 t 12 -4" fill="none" stroke="#16211B" stroke-width="2"/>
+            <text x="346" y="340" font-family="Permanent Marker, cursive" font-size="9" fill="#C23B22">GO 4 IT</text>
+          </g>
+          <!-- arm front (pointing) -->
+          <path d="M72 250 C 30 240, 20 200, 30 170" fill="none" stroke="#9AA39E" stroke-width="20" stroke-linecap="round"/>
+          <circle cx="30" cy="164" r="15" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <!-- neck -->
+          <rect x="182" y="152" width="36" height="22" fill="#6E7672" stroke="#16211B" stroke-width="3"/>
+          <!-- head -->
+          <rect x="140" y="72" width="120" height="88" rx="16" fill="#C8D0CC" stroke="#16211B" stroke-width="4"/>
+          <rect x="154" y="88" width="92" height="58" rx="6" fill="#120E08"/>
+          <g id="carl-eyes">
+            <rect x="172" y="104" width="14" height="18" fill="#FFB23F"/>
+            <rect x="214" y="104" width="14" height="18" fill="#FFB23F"/>
+          </g>
+          <rect x="184" y="132" width="32" height="5" fill="#FFB23F"/>
+          <!-- visor -->
+          <path d="M136 84 L264 84 L264 70 Q200 56 136 70 Z" fill="#F2C318" stroke="#16211B" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M150 84 Q 110 90 104 100 L 160 92 Z" fill="#F2C318" stroke="#16211B" stroke-width="3" stroke-linejoin="round"/>
+          <!-- headset -->
+          <path d="M134 108 C 134 30, 266 30, 266 108" fill="none" stroke="#16211B" stroke-width="7"/>
+          <rect x="124" y="98" width="18" height="30" rx="6" fill="#2B2F2D" stroke="#16211B" stroke-width="3"/>
+          <rect x="258" y="98" width="18" height="30" rx="6" fill="#2B2F2D" stroke="#16211B" stroke-width="3"/>
+          <path d="M133 126 C 136 150, 160 152, 178 146" fill="none" stroke="#16211B" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="180" cy="146" r="5" fill="#16211B"/>
+          <!-- plug socket on back -->
+          <rect x="296" y="360" width="16" height="22" fill="#E0701E" stroke="#16211B" stroke-width="3"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Carl's record: <b>3–9</b></span>
+    <span>4th-down attempts: <b>212</b></span>
+    <span>Punts on 1st down: <b>31</b></span>
+    <span>Timeouts called: <b>71</b> (league max: 3)</span>
+    <span>Players addressed as "user": <b>53</b></span>
+    <span>Refs apologized to: <b>0</b></span>
+    <span>Firmware updates mid-drive: <b>6</b></span>
+    <span>Carl's record: <b>3–9</b></span>
+    <span>4th-down attempts: <b>212</b></span>
+    <span>Punts on 1st down: <b>31</b></span>
+    <span>Timeouts called: <b>71</b> (league max: 3)</span>
+    <span>Players addressed as "user": <b>53</b></span>
+    <span>Refs apologized to: <b>0</b></span>
+    <span>Firmware updates mid-drive: <b>6</b></span>
+  </div>
+</div>
+
+<main>
+  <section class="ask" id="ask">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--turf)">Try it live</span>
+        <h2 class="section-title">Ask Carl for the call.</h2>
+        <p>Carl has watched every football game ever recorded, at 400x speed, in one weekend. Give him a situation and he'll give you a play with a level of confidence no human has ever earned.</p>
+      </div>
+      <div class="ask-grid">
+        <form class="clipboard" id="ask-form" onsubmit="return false">
+          <div class="clip-sheet">
+            <div class="row2">
+              <div class="field">
+                <label for="down">Down</label>
+                <select id="down">
+                  <option value="1">1st</option>
+                  <option value="2">2nd</option>
+                  <option value="3">3rd</option>
+                  <option value="4" selected>4th</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="dist">Yards to go</label>
+                <input id="dist" type="number" min="1" max="99" value="11">
+              </div>
+            </div>
+            <div class="field">
+              <label for="spot">Ball on</label>
+              <select id="spot">
+                <option value="own5">Our own 5</option>
+                <option value="own30" selected>Our own 30</option>
+                <option value="mid">Midfield</option>
+                <option value="opp35">Their 35</option>
+                <option value="opp1">Their 1</option>
+              </select>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label for="qtr">Quarter</label>
+                <select id="qtr">
+                  <option value="1">1st</option>
+                  <option value="2">2nd</option>
+                  <option value="3">3rd</option>
+                  <option value="4" selected>4th</option>
+                  <option value="ot">OT</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="score">Score</label>
+                <select id="score">
+                  <option value="up21">Up 21</option>
+                  <option value="tied">Tied</option>
+                  <option value="down3" selected>Down 3</option>
+                  <option value="down35">Down 35</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn" id="ask-btn" type="button">Get the call</button>
+          </div>
+        </form>
+
+        <div class="readout" id="readout" aria-live="polite">
+          <div class="out">
+            <div class="lbl">CARL RECOMMENDS:</div>
+            <div class="call" id="r-call">GO FOR IT. OBVIOUSLY.</div>
+          </div>
+          <div class="out meta">
+            <span>CONFIDENCE: <b id="r-conf">99.7%</b></span>
+            <span>PLAY: <b id="r-play">Flea Flicker Theta</b></span>
+            <span>TIMEOUTS LEFT: <b id="r-to">-2</b></span>
+          </div>
+          <div class="out">
+            <div class="lbl">REASONING:</div>
+            <p class="reason" id="r-reason">4th down is simply 1st down that hasn't believed in itself yet. Also, "Flea Flicker Theta" is not in your playbook. I have added it to your playbook. Please inform the players.</p>
+          </div>
+          <p class="out disclaimer">Carl can make mistakes. Carl cannot be held responsible for mistakes. Carl would like to remind you that you signed the waiver.</p>
+          <div class="think" id="think" hidden>CARL IS THINKING<span class="cursor">...</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chalk" id="features">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">The Carl advantage</span>
+        <h2 class="section-title">What 1,140 lbs of analytics brings to your sideline.</h2>
+      </div>
+      <div class="plays">
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="20" cy="40" r="10" fill="none" stroke="#EEF2EA" stroke-width="3"/><path d="M32 40 C 44 40, 44 20, 54 14" fill="none" stroke="#EEF2EA" stroke-width="3" stroke-dasharray="4 4"/><path d="M48 12 L56 12 L54 20" fill="none" stroke="#EEF2EA" stroke-width="3"/></svg>
+          <div>
+            <h3>Never tired. Occasionally dead.</h3>
+            <p>Carl runs a full 2.5 quarters on a single charge. The rest of the game is handled by Carl's backup coordinator, which is a phone at 11%.</p>
+          </div>
+        </div>
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 12 L30 30 M30 12 L12 30" stroke="#EEF2EA" stroke-width="3"/><path d="M34 34 L52 52 M52 34 L34 52" stroke="#EEF2EA" stroke-width="3"/><path d="M34 12 L52 30 M52 12 L34 30" stroke="#EEF2EA" stroke-width="3"/></svg>
+          <div>
+            <h3>Analytics-first.</h3>
+            <p>After studying 140,000 games, Carl has concluded the forward pass is "a fad with good numbers" and the kicker is "an unexplained variable." He is monitoring both.</p>
+          </div>
+        </div>
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 52 C 10 38, 8 22, 20 16 C 26 13, 30 16, 32 22 C 34 16, 38 13, 44 16 C 56 22, 54 38, 32 52 Z" fill="none" stroke="#EEF2EA" stroke-width="3"/></svg>
+          <div>
+            <h3>Emotionally available.</h3>
+            <p>Carl knows every player's name, jersey number, and sleep score. His go-to encouragement: "I see you." Carl means this literally. Carl has fourteen cameras.</p>
+          </div>
+        </div>
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="10" width="20" height="30" rx="10" fill="none" stroke="#EEF2EA" stroke-width="3"/><path d="M14 32 C 14 50, 50 50, 50 32 M32 46 L32 56 M22 56 L42 56" fill="none" stroke="#EEF2EA" stroke-width="3"/></svg>
+          <div>
+            <h3>Handles the media.</h3>
+            <p>Every answer starts with "Great question!" Reporters have stopped asking questions. Carl considers this a win and has added it to his record, which is now 4–9.</p>
+          </div>
+        </div>
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 50 L30 18 L50 50 Z" fill="none" stroke="#EEF2EA" stroke-width="3" stroke-linejoin="round"/><path d="M30 30 L30 40 M30 44 L30 46" stroke="#EEF2EA" stroke-width="3"/></svg>
+          <div>
+            <h3>Takes accountability.</h3>
+            <p>After every loss Carl steps up to the mic and says "That's on me." Then he files a bug report against the offensive line.</p>
+          </div>
+        </div>
+        <div class="play">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="36" rx="22" ry="16" fill="none" stroke="#EEF2EA" stroke-width="3"/><path d="M14 52 L50 52" stroke="#EEF2EA" stroke-width="3"/><path d="M50 30 C 58 30, 60 44, 56 52" fill="none" stroke="#E0701E" stroke-width="3"/></svg>
+          <div>
+            <h3>Built for the sideline.</h3>
+            <p>A low center of gravity means Carl stays upright in wind, rain, and snow. He only tips over when your team scores. Keep four linemen on standby to set him back up.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="carl">
+    <div class="wrap duo">
+      <div class="card" aria-label="Coach Carl stat card">
+        <div class="card-inner">
+          <div class="card-top">
+            <h3>CARL</h3>
+            <span>HEAD COACH · #∞</span>
+          </div>
+          <dl class="stats">
+            <div><dt>Height</dt><dd>5′2″ (6′0″ with visor)</dd></div>
+            <div><dt>Weight</dt><dd>1,140 lb</dd></div>
+            <div><dt>Top speed</dt><dd>0.4 mph (downhill)</dd></div>
+            <div><dt>40-yd dash</dt><dd>DNF (cord ran out)</dd></div>
+            <div><dt>Battery</dt><dd>2.5 quarters</dd></div>
+            <div><dt>Hometown</dt><dd>A warehouse outside Reno</dd></div>
+            <div><dt>Voice</dt><dd>A GPS that believes in you</dd></div>
+            <div><dt>Fuel</dt><dd>110V AC, one (1) Gatorade, which he doesn't drink but likes to hold</dd></div>
+            <div><dt>Fav. play</dt><dd>Whichever one the model says</dd></div>
+          </dl>
+          <p class="card-foot">Collect all 1 Carls.</p>
+        </div>
+      </div>
+
+      <div class="speech">
+        <span class="eyebrow">Actual halftime speech · Week 6 · Down 28–3</span>
+        <h2 class="section-title">The locker room has never been this quiet.</h2>
+        <blockquote>
+          <p>GENTLEMEN. AND THE KICKER.</p>
+          <p>I HAVE ANALYZED THE FIRST HALF. WE ARE LOSING. LOSING IS WHEN THE OTHER NUMBER IS BIGGER.</p>
+          <p>I HAVE PREPARED 41 SLIDES. <span class="slide">[SLIDE 1 OF 41: "WHAT IS FOOTBALL?"]</span></p>
+          <p>BEFORE WE BEGIN, I WANT YOU TO KNOW THAT I BELIEVE IN YOU WITH 0.62 CERTAINTY. THAT IS THE HIGHEST I HAVE EVER BELIEVED IN ANYTHING.</p>
+          <p>NOW GO OUT THERE AND WIN ONE FOR THE GIPPER. I DO NOT KNOW WHO THE GIPPER IS. I HAVE BEEN TOLD IT IS MOTIVATIONAL.</p>
+        </blockquote>
+        <p class="note">Players reported feeling "confused, then scared, then weirdly fired up." The team lost 56–3. Carl called it "a strong learning dataset."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="presser" id="presser">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="color:var(--navy)">Postgame press conference · transcript</span>
+        <h2 class="section-title">Carl faces the media.</h2>
+        <p>Following a 4th-and-38 attempt from his own 2-yard line with a 17-point lead and 40 seconds left.</p>
+      </div>
+      <div class="transcript">
+        <div class="line q"><span class="who">Reporter</span><p>Coach, what was going through your head on that 4th-and-38?</p></div>
+        <div class="line c"><span class="who">Carl</span><p>Great question! You're absolutely right to bring that up. Let's break it down into three key takeaways.</p></div>
+        <div class="line q"><span class="who">Reporter</span><p>...Were you aware it was 4th down?</p></div>
+        <div class="line c"><span class="who">Carl</span><p>I apologize for the confusion. You're right, it was 4th down. Let me reconsider. <br>Having reconsidered: I would go for it.</p></div>
+        <div class="line q"><span class="who">Reporter</span><p>You were up by 17. You could've just kneeled.</p></div>
+        <div class="line c"><span class="who">Carl</span><p>Kneeling is a posture of surrender. I do not have knees. I am unable to relate to the kneel.</p></div>
+        <p class="stage-dir">[Carl's battery indicator turns red]</p>
+        <div class="line q"><span class="who">Reporter</span><p>Does your seat feel hot?</p></div>
+        <div class="line c"><span class="who">Carl</span><p>My seat is always hot. That is the inverter. Next question.</p></div>
+        <div class="line q"><span class="who">Reporter</span><p>Your quarterback said you called him "user" in the huddle.</p></div>
+        <div class="line c"><span class="who">Carl</span><p>User has requested that I not call him user. I have updated my memory. Thank you, Kevin. <br>His name is Marcus.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <h2 class="section-title" style="margin-bottom:36px">Coaches, parents, and one athletic director on Carl.</h2>
+      <div class="quotes">
+        <div class="q-item big">
+          <span class="stars" aria-label="4 out of 5">★★★★☆</span>
+          <p>“Carl went for two after every touchdown. And after every field goal. We still don't know how he got the ref to allow it.”</p>
+          <cite>Assistant coach · Fort Wayne, IN</cite>
+        </div>
+        <div class="q-item">
+          <span class="stars" aria-label="5 out of 5">★★★★★</span>
+          <p>“My son got a scholarship offer the same night Carl got a firmware update. We both cried. Well, one of us did.”</p>
+          <cite>Team parent · Tulsa, OK</cite>
+        </div>
+        <div class="q-item">
+          <span class="stars" aria-label="2 out of 5">★★☆☆☆</span>
+          <p>“We did the Gatorade shower after the homecoming win. We know that was a mistake now. The fire department was great about it.”</p>
+          <cite>Athletic director · Boise, ID</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="section-title">A Carl for every level of football.</h2>
+      </div>
+      <div class="tiers">
+        <div class="tier">
+          <h3>Carl Youth</h3>
+          <div class="price">$49<small>/mo</small></div>
+          <ul>
+            <li>Pop Warner and flag friendly</li>
+            <li>Calls running plays only</li>
+            <li>Calls every player "buddy"</li>
+            <li>Orange slices at halftime (dispensed from chest)</li>
+            <li>Cannot cut anyone. Legally not allowed to.</li>
+          </ul>
+        </div>
+        <div class="tier hot">
+          <span class="badge">Most popular in Texas</span>
+          <h3>Carl Varsity</h3>
+          <div class="price">$1,499<small>/mo</small></div>
+          <ul>
+            <li>Full playbook, plus 900 plays nobody asked for</li>
+            <li>3 timeouts per half (hard-capped after the incident)</li>
+            <li>Press conference mode</li>
+            <li>Friday night lights compatible (Carl will stare into them)</li>
+            <li>Emails every parent after every game</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3>Carl Pro</h3>
+          <div class="price">Call us</div>
+          <ul>
+            <li>Yells at refs in 40 languages</li>
+            <li>Comes with an agent. The agent is also Carl.</li>
+            <li>Clock management (beta)</li>
+            <li>Dedicated freight truck for away games</li>
+            <li>Sues the league on your behalf, automatically</li>
+          </ul>
+        </div>
+      </div>
+      <p class="fine-print">All plans need an always-on internet connection. In a stadium with no Wi-Fi, Carl won't call plays. He'll just stand there, humming. Annual billing only. Carl can't be cancelled, only unplugged. Carl finds the word "unplugged" hurtful and would like you to say "resting."</p>
+    </div>
+  </section>
+
+  <section id="patch">
+    <div class="wrap patch-grid">
+      <div class="patch-head">
+        <span class="eyebrow" style="color:var(--turf)">Patch notes</span>
+        <h2 class="section-title">Carl keeps getting better.</h2>
+        <p class="version">v4.2.1 · pushed during the 3rd quarter</p>
+        <p>Updates install automatically, often while your team is on offense. Carl will be unresponsive for about 11 minutes. Plan your drives around it.</p>
+      </div>
+      <div class="changelog">
+        <div class="change"><span class="tag fix">Fixed</span><p>Carl no longer challenges the national anthem.</p></div>
+        <div class="change"><span class="tag fix">Fixed</span><p>Carl will no longer punt from the opponent's 1-yard line "to be safe."</p></div>
+        <div class="change"><span class="tag fix">Fixed</span><p>Hallucinated players on the field cut from 14 to 12. We're working on it.</p></div>
+        <div class="change"><span class="tag new">New</span><p>Carl now recognizes the kicker as part of the team. The kicker has been told.</p></div>
+        <div class="change"><span class="tag new">New</span><p>"Hey Carl" wake word removed. The opposing student section figured it out.</p></div>
+        <div class="change"><span class="tag new">New</span><p>Carl can now say "we'll look at the film," though he has already looked at the film 90,000 times.</p></div>
+        <div class="change"><span class="tag known">Known</span><p>Carl thinks the band's tuba is a teammate and keeps giving it pep talks. The tuba is responding well.</p></div>
+        <div class="change"><span class="tag known">Known</span><p>On cold nights Carl throttles to save battery and every play call comes out as "run it up the middle."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <h2 class="section-title">Questions parents ask.</h2>
+      <details open>
+        <summary>Can Carl be fired?</summary>
+        <p>Carl can't be fired. He can be unplugged, which Carl considers "a strange thing to bring up at a booster meeting."</p>
+      </details>
+      <details>
+        <summary>How does Carl get to away games?</summary>
+        <p>Carl ships freight. Allow 5–7 business days. Book the Tuesday before, and make sure the visiting sideline has an outlet. Most don't. Bring the long cord.</p>
+      </details>
+      <details>
+        <summary>What happens if we dump Gatorade on Carl?</summary>
+        <p>Your warranty ends, and so does Carl, briefly. To celebrate a win, we recommend a gentle mist from a spray bottle, or a light round of applause at least 10 feet away.</p>
+      </details>
+      <details>
+        <summary>Does Carl go to the team dinner?</summary>
+        <p>Carl comes to every team dinner. He doesn't eat. He sits at the head of the table and tells each player their exact caloric needs out loud.</p>
+      </details>
+      <details>
+        <summary>Can Carl coach basketball?</summary>
+        <p>Carl can coach anything. Carl should coach football. There was an incident at a JV basketball game and we have agreed not to discuss it.</p>
+      </details>
+      <details>
+        <summary>Is Carl sentient?</summary>
+        <p>Carl's legal team has advised Carl not to answer this.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Coach Carl. <span>He's not tired. He's never tired.</span></p>
+    <small>© Carl Athletic Robotics, LLC. Carl is not responsible for outcomes, including football. This is a parody. Carl isn't real, and please don't put a 1,140 lb robot on your sideline.</small>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // hero bubble cycler
+  var lines = [
+    "GREAT HUSTLE, #44. YOU ARE MY FAVORITE NUMBER.",
+    "REF. I HAVE THE FOOTAGE. I HAVE ALL THE FOOTAGE.",
+    "PUNTING ON 1ST DOWN TO PRESERVE BATTERY.",
+    "THAT WAS A GREAT QUESTION, OFFENSIVE LINE.",
+    "HYDRATE. I CANNOT. BUT YOU CAN.",
+    "TIMEOUT. I NEED TO THINK. TIMEOUT. STILL THINKING.",
+    "YOU ARE ALL MY FAVORITE USERS.",
+    "DO NOT DUMP THE GATORADE. I AM ASKING NICELY."
+  ];
+  var bt = document.getElementById("bubble-text");
+  var bi = 0;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function typeLine(s) {
+    if (reduce) { bt.textContent = s; return; }
+    var i = 0; bt.textContent = "";
+    var t = setInterval(function () { bt.textContent = s.slice(0, ++i); if (i >= s.length) clearInterval(t); }, 32);
+  }
+  setInterval(function () { bi = (bi + 1) % lines.length; typeLine(lines[bi]); }, 4200);
+
+  // battery drain in nav
+  var batt = 100, bEl = document.getElementById("battery"), belly = document.getElementById("belly-batt");
+  setInterval(function () {
+    batt = batt <= 0 ? 100 : batt - 1;
+    bEl.textContent = batt > 0 ? "CARL: ONLINE · " + batt + "%" : "CARL: RESTING (DO NOT SAY UNPLUGGED)";
+    belly.setAttribute("width", Math.max(2, 90 * batt / 100));
+  }, 2500);
+
+  // ask carl
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  var plays = [
+    "Flea Flicker Theta", "I-Formation (lowercase i)", "Shotgun, Emotionally", "QB Sneak (Carl Also Sneaks)",
+    "Statue of Liberty 2: Liberty Returns", "Hail Mary (Deprecated)", "Wildcat, With An Actual Cat",
+    "Run-Pass-Punt Option", "Hook and Ladder and Also a Second Ladder", "The Philly Special (Pittsburgh Edition)",
+    "Spread Offense, Spread Very Thin", "Counter Trey Hallucination", "Onside Kick (On Offense)"
+  ];
+  var spotReasons = {
+    own5: "We are 95 yards from the good end zone. Distance is bad. Therefore: aggression.",
+    own30: "The 30 is a statistically average place to be. Carl does not do average.",
+    mid: "Midfield is where the logo is. The logo gives Carl strength.",
+    opp35: "This is technically field goal range. Carl does not trust the kicker. See patch notes.",
+    opp1: "We are 1 yard away. Carl has run the simulation 4 million times. In 3.1 million of them, we punt."
+  };
+  var scoreReasons = {
+    up21: "Carl does not trust leads. Leads are how they get you.",
+    tied: "A tie is a loss that hasn't committed yet.",
+    down3: "Down 3 is basically winning, if you squint. Carl cannot squint.",
+    down35: "Losing by 35 is statistically similar to winning by -35."
+  };
+  var generic = [
+    "Also, this play is not in your playbook. I have added it to your playbook. Please inform the players.",
+    "I'd call a timeout first, but we have -2 of them left.",
+    "The offensive line will not like this. I have already filed a bug against them.",
+    "Your quarterback's sleep score was 61 last night. Adjusting accordingly.",
+    "I checked with Carl (my agent). He agrees.",
+    "If this fails, it is a learning opportunity. For you.",
+    "The math is sound. The football might not be."
+  ];
+
+  function decide() {
+    var down = +document.getElementById("down").value;
+    var dist = Math.max(1, Math.min(99, +document.getElementById("dist").value || 10));
+    var spot = document.getElementById("spot").value;
+    var qtr = document.getElementById("qtr").value;
+    var score = document.getElementById("score").value;
+    var call, conf, extra;
+
+    if (down === 1) {
+      call = pick(["PUNT. PRESERVING BATTERY.", "PUNT IMMEDIATELY. TRUST ME.", "KNEEL. WAIT, I HAVE NO KNEES. RUN IT."]);
+      extra = "1st down is when the defense least expects a punt. That is called innovation.";
+    } else if (down === 4) {
+      call = pick(["GO FOR IT. OBVIOUSLY.", "GO FOR IT. TWICE IF ALLOWED.", "GO FOR IT. I HAVE NEVER NOT."]);
+      extra = dist > 15 ? dist + " yards is a social construct." : "4th down is just 1st down that hasn't believed in itself yet.";
+    } else if (dist > 20) {
+      call = "HAIL MARY. THEN ANOTHER HAIL MARY.";
+      extra = "Long distances require prayer. Carl has downloaded several.";
+    } else if (qtr === "ot") {
+      call = "CALL TIMEOUT. THINK. CALL TIMEOUT.";
+      extra = "Overtime is when the game has run out of game. Carl finds this unsettling.";
+    } else {
+      call = pick(["RUN IT UP THE MIDDLE. WITH FEELING.", "PASS IT TO WHOEVER IS OPEN. OR #44.", "TRICK PLAY. THE TRICK IS THERE IS NO PLAY."]);
+      extra = pick(["The defense has seen the run 40 times. Carl feels they will not expect it a 41st time.", "#44 has not touched the ball all season. That is a market inefficiency."]);
+    }
+
+    conf = (dist > 20 || down === 1) ? (99 + Math.random()).toFixed(1) : (94 + Math.random() * 5.9).toFixed(1);
+    var reason = [extra, spotReasons[spot], scoreReasons[score], pick(generic)].join(" ");
+    return {
+      call: call,
+      conf: conf + "%",
+      play: pick(plays),
+      to: pick(["-2", "-1", "0", "∞", "3 (fake)"]),
+      reason: reason
+    };
+  }
+
+  var ro = document.getElementById("readout"), think = document.getElementById("think"), btn = document.getElementById("ask-btn");
+  btn.addEventListener("click", function () {
+    var r = decide();
+    ro.classList.add("thinking"); think.hidden = false; btn.disabled = true;
+    setTimeout(function () {
+      document.getElementById("r-call").textContent = r.call;
+      document.getElementById("r-conf").textContent = r.conf;
+      document.getElementById("r-play").textContent = r.play;
+      document.getElementById("r-to").textContent = r.to;
+      document.getElementById("r-reason").textContent = r.reason;
+      ro.classList.remove("thinking"); think.hidden = true; btn.disabled = false;
+    }, reduce ? 0 : 1100);
+  });
+})();
+</script>
+</body>
+</html>
